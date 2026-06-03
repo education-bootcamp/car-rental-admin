@@ -10,6 +10,21 @@ export const routes: Routes = [
   {
     path: 'auth',
     loadComponent: () => import('./pages/auth/auth').then((e) => e.Auth),
+    children: [
+      { path: '', redirectTo: '/auth/login', pathMatch: 'full' },
+      {
+        path: 'login',
+        loadComponent: () =>
+          import('./pages/auth/inner-pages/login-page/login-page').then((e) => e.LoginPage),
+      },
+      {
+        path: 'register',
+        loadComponent: () =>
+          import('./pages/auth/inner-pages/register-page/register-page').then(
+            (e) => e.RegisterPage,
+          ),
+      },
+    ],
   },
   {
     path: 'dashboard',
