@@ -10,7 +10,7 @@ import { environment } from '../../../environments/environment.development';
 export class AuthService {
   httpClient = inject(HttpClient);
   
-  private authUrl=`${environment.BASEURL}/auth/register`;
+  private authUrl=`${environment.BASEURL}/api/v1/auth/register`;
 
   public createUser(data: RegisterRequestDto):Observable<any>{
      return this.httpClient.post(this.authUrl,data);
