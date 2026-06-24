@@ -1,0 +1,178 @@
+<!-- HERO -->
+<section class="hero">
+  <span class="hero__eyebrow">Get in Touch</span>
+  <h1 class="hero__heading">
+    We're here<br />
+    <span class="hero__heading--accent">whenever you need us.</span>
+  </h1>
+  <p class="hero__sub">
+    Questions about a booking, fleet enquiries, or just want to say hello —
+    our team responds within the hour during working hours.
+  </p>
+</section>
+
+<!-- MAIN CONTENT: FORM + INFO -->
+<section class="main">
+  <div class="main__inner">
+
+    <!-- CONTACT FORM -->
+    <div class="form-panel">
+      <h2 class="panel-title">Send us a message</h2>
+
+      <div class="success" *ngIf="submitted">
+        <span class="success__icon">✅</span>
+        <div>
+          <strong>Message sent!</strong>
+          <p>We'll get back to you within the hour.</p>
+        </div>
+        <button class="success__reset" (click)="resetForm()">Send another</button>
+      </div>
+
+      <form class="form" *ngIf="!submitted" (ngSubmit)="onSubmit()">
+        <div class="form__row">
+          <div class="form__group">
+            <label class="form__label" for="name">Full Name <span class="required">*</span></label>
+            <input
+              id="name"
+              class="form__input"
+              type="text"
+              placeholder="Kamal Perera"
+              [(ngModel)]="formData.name"
+              name="name"
+              required
+            />
+          </div>
+          <div class="form__group">
+            <label class="form__label" for="email">Email <span class="required">*</span></label>
+            <input
+              id="email"
+              class="form__input"
+              type="email"
+              placeholder="kamal@example.com"
+              [(ngModel)]="formData.email"
+              name="email"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="form__row">
+          <div class="form__group">
+            <label class="form__label" for="phone">Phone</label>
+            <input
+              id="phone"
+              class="form__input"
+              type="tel"
+              placeholder="+94 77 000 0000"
+              [(ngModel)]="formData.phone"
+              name="phone"
+            />
+          </div>
+          <div class="form__group">
+            <label class="form__label" for="subject">Subject</label>
+            <select
+              id="subject"
+              class="form__input form__select"
+              [(ngModel)]="formData.subject"
+              name="subject"
+            >
+              <option value="" disabled selected>Select a topic</option>
+              <option value="booking">Booking Enquiry</option>
+              <option value="fleet">Fleet Information</option>
+              <option value="support">Roadside Support</option>
+              <option value="billing">Billing</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form__group">
+          <label class="form__label" for="message">Message <span class="required">*</span></label>
+          <textarea
+            id="message"
+            class="form__input form__textarea"
+            placeholder="Tell us how we can help…"
+            [(ngModel)]="formData.message"
+            name="message"
+            rows="5"
+            required
+          ></textarea>
+        </div>
+
+        <button
+          class="btn btn--primary"
+          type="submit"
+          [disabled]="submitting"
+        >
+          <span *ngIf="!submitting">Send Message →</span>
+          <span *ngIf="submitting">Sending…</span>
+        </button>
+      </form>
+    </div>
+
+    <!-- CONTACT INFO -->
+    <aside class="info-panel">
+      <h2 class="panel-title">Contact details</h2>
+
+      <ul class="info-list">
+        <li class="info-item" *ngFor="let item of contactInfo">
+          <span class="info-item__icon">{{ item.icon }}</span>
+          <div class="info-item__body">
+            <span class="info-item__label">{{ item.label }}</span>
+            <a
+              *ngIf="item.link"
+              class="info-item__value info-item__value--link"
+              [href]="item.link"
+            >{{ item.value }}</a>
+            <span
+              *ngIf="!item.link"
+              class="info-item__value"
+            >{{ item.value }}</span>
+          </div>
+        </li>
+      </ul>
+
+      <!-- FAQ -->
+      <div class="faq">
+        <h3 class="faq__heading">Common questions</h3>
+        <div
+          class="faq__item"
+          *ngFor="let faq of faqs"
+          [class.faq__item--open]="faq.open"
+        >
+          <button class="faq__question" (click)="toggleFaq(faq)">
+            <span>{{ faq.question }}</span>
+            <span class="faq__chevron">{{ faq.open ? '−' : '+' }}</span>
+          </button>
+          <div class="faq__answer" *ngIf="faq.open">
+            {{ faq.answer }}
+          </div>
+        </div>
+      </div>
+    </aside>
+
+  </div>
+</section>
+
+<!-- MAP -->
+<section class="map-section">
+  <div class="map-section__header">
+    <p class="section-eyebrow">Find Us</p>
+    <h2 class="section-heading">Our head office location.</h2>
+  </div>
+  <div class="map-wrapper">
+    <iframe
+      width="100%"
+      height="100%"
+      frameborder="0"
+      scrolling="no"
+      marginheight="0"
+      marginwidth="0"
+      style="border:0"
+      allowfullscreen
+      loading="lazy"
+      src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBVizdQeh3udy11xDc5Ao2YStR2gLc-rfc&q=1%20Grafton%20Street%2C%20Dublin%2C%20Ireland&maptype=roadmap&zoom=14"
+    >
+    </iframe>
+  </div>
+</section>

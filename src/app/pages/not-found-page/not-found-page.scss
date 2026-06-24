@@ -1,0 +1,95 @@
+.nf {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  background: var(--clouds);
+  text-align: center;
+
+  // ── Illustration ────────────────────────────────────────────────────────────
+  &__illustration {
+    width: 100%;
+    max-width: 320px;
+    margin-bottom: 32px;
+
+    svg {
+      width: 100%;
+      height: auto;
+      filter: drop-shadow(0 8px 24px rgba(44, 62, 80, 0.12));
+      border-radius: 16px;
+    }
+  }
+
+  // ── 404 code ────────────────────────────────────────────────────────────────
+  &__code {
+    font-size: 5rem;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: var(--turquoise);
+    margin-bottom: 8px;
+
+    @media (max-width: 480px) { font-size: 4rem; }
+  }
+
+  // ── Heading ─────────────────────────────────────────────────────────────────
+  &__title {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--midnight-blue);
+    margin-bottom: 12px;
+    letter-spacing: -0.02em;
+  }
+
+  // ── Subtext ─────────────────────────────────────────────────────────────────
+  &__sub {
+    font-size: 0.9375rem;
+    color: var(--asbestos);
+    line-height: 1.65;
+    max-width: 360px;
+    margin-bottom: 36px;
+  }
+
+  // ── Actions ─────────────────────────────────────────────────────────────────
+  &__actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  &__btn {
+    padding: 11px 28px;
+    border-radius: 10px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    text-decoration: none;
+    font-family: "Roboto", sans-serif;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+
+    &--primary {
+      background: var(--turquoise);
+      color: #fff;
+
+      &:hover { background: var(--green-sea); }
+    }
+
+    &--ghost {
+      background: transparent;
+      color: var(--wet-asphalt);
+      border: 1.5px solid var(--silver);
+
+      &:hover {
+        border-color: var(--concrete);
+        color: var(--midnight-blue);
+      }
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--turquoise);
+      outline-offset: 3px;
+    }
+  }
+}

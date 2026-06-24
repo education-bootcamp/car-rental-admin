@@ -1,1 +1,15 @@
-<p>auth-header works!</p>
+<header class="auth-header">
+  <div class="header-inner">
+    <!-- Logo -->
+    <a routerLink="/" class="logo-link">
+      <img src="/logo.png" alt="DrivePro Logo" class="logo-img" />
+    </a>
+
+    <!-- Nav -->
+    <nav class="nav-links">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="nav-item">
+        Home
+      </a>
+    </nav>
+  </div>
+</header>

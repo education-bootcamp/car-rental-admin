@@ -1,1 +1,90 @@
-<p>home-header works!</p>
+<header class="header">
+
+  <!-- Top bar (desktop only) -->
+  <div class="header__topbar">
+    <div class="header__topbar-inner">
+      <div class="header__topbar-contacts">
+        <span class="header__topbar-item">
+          <span class="header__topbar-icon">📞</span>
+          +94 77 123 4567
+        </span>
+        <span class="header__topbar-item">
+          <span class="header__topbar-icon">✉️</span>
+          support@drivepro.lk
+        </span>
+      </div>
+      <div class="header__topbar-auth">
+        <a routerLink="/auth/login" class="header__topbar-link">Sign In</a>
+        <a routerLink="/auth/register" class="header__topbar-link header__topbar-link--cta">Register</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main nav -->
+  <nav class="header__nav">
+    <div class="header__nav-inner">
+
+      <!-- Logo -->
+      <a routerLink="/" class="header__logo">
+        <span class="header__logo-icon">🚗</span>
+      </a>
+
+      <!-- Desktop links + actions -->
+      <div class="header__desktop">
+        <ul class="header__links">
+          <li *ngFor="let link of navLinks">
+            <a
+              [routerLink]="link.href"
+              routerLinkActive="header__link--active"
+              class="header__link"
+            >{{ link.label }}</a>
+          </li>
+        </ul>
+        <div class="header__actions">
+          <a routerLink="/process/fleet" class="btn btn--outline">View Fleet</a>
+          <a routerLink="/book"  class="btn btn--primary">Book Now</a>
+        </div>
+      </div>
+
+      <!-- Hamburger (mobile only) -->
+      <button
+        class="header__hamburger"
+        [class.header__hamburger--open]="menuOpen"
+        (click)="toggleMenu()"
+        aria-label="Toggle menu"
+        [attr.aria-expanded]="menuOpen"
+      >
+        <span class="header__hamburger-bar"></span>
+        <span class="header__hamburger-bar"></span>
+        <span class="header__hamburger-bar"></span>
+      </button>
+
+    </div>
+  </nav>
+
+  <!-- Mobile drawer — OUTSIDE nav, directly inside header -->
+  <div
+    class="header__drawer"
+    [class.header__drawer--open]="menuOpen"
+    [attr.aria-hidden]="!menuOpen"
+  >
+    <ul class="header__drawer-links">
+      <li *ngFor="let link of navLinks">
+        <a
+          [routerLink]="link.href"
+          routerLinkActive="header__drawer-link--active"
+          class="header__drawer-link"
+          (click)="closeMenu()"
+        >
+          <span class="header__drawer-link-bar"></span>
+          {{ link.label }}
+        </a>
+      </li>
+    </ul>
+    <div class="header__drawer-actions">
+      <a routerLink="/fleet" class="btn btn--outline btn--block" (click)="closeMenu()">View Fleet</a>
+      <a routerLink="/book"  class="btn btn--primary btn--block" (click)="closeMenu()">Book Now</a>
+    </div>
+  </div>
+
+</header>

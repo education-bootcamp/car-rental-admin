@@ -1,0 +1,168 @@
+<div class="register-page">
+  <main class="register-main">
+    <div class="register-card">
+
+      <!-- Brand mark -->
+      <div class="card-brand">
+        <span class="brand-dot"></span>
+        <span class="brand-label">DrivePro · Sri Lanka</span>
+      </div>
+
+      <h1 class="card-title">Create your account</h1>
+      <p class="card-subtitle">Join thousands of happy drivers across the island.</p>
+
+      <form [formGroup]="registerForm" (ngSubmit)="onRegister()" class="register-form" novalidate>
+
+        <!-- Name row -->
+        <div class="name-row">
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>First name</mat-label>
+            <mat-icon matPrefix class="field-prefix-icon">person_outline</mat-icon>
+            <input matInput formControlName="firstName" placeholder="Kasun" autocomplete="given-name" />
+            <mat-error *ngIf="registerForm.get('firstName')?.touched">
+              {{ getFirstNameError() }}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Last name</mat-label>
+            <input matInput formControlName="lastName" placeholder="Perera" autocomplete="family-name" />
+            <mat-error *ngIf="registerForm.get('lastName')?.touched">
+              {{ getLastNameError() }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Email -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email address</mat-label>
+          <mat-icon matPrefix class="field-prefix-icon">mail_outline</mat-icon>
+          <input
+            matInput
+            type="email"
+            formControlName="email"
+            placeholder="you@example.com"
+            autocomplete="email"
+          />
+          <mat-error *ngIf="registerForm.get('email')?.touched">
+            {{ getEmailError() }}
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Phone -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Mobile number</mat-label>
+          <mat-icon matPrefix class="field-prefix-icon">phone_android</mat-icon>
+          <input
+            matInput
+            type="tel"
+            formControlName="phone"
+            placeholder="077 123 4567"
+            autocomplete="tel"
+          />
+          <mat-hint>Sri Lankan number (+94 or 0xx)</mat-hint>
+          <mat-error *ngIf="registerForm.get('phone')?.touched">
+            {{ getPhoneError() }}
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Password -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Password</mat-label>
+          <mat-icon matPrefix class="field-prefix-icon">lock_outline</mat-icon>
+          <input
+            matInput
+            [type]="hidePassword ? 'password' : 'text'"
+            formControlName="password"
+            placeholder="Min. 8 characters"
+            autocomplete="new-password"
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            type="button"
+            (click)="togglePassword()"
+            [attr.aria-label]="hidePassword ? 'Show password' : 'Hide password'"
+            class="visibility-toggle"
+          >
+            <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          <mat-error *ngIf="registerForm.get('password')?.touched">
+            {{ getPasswordError() }}
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Confirm password -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Confirm password</mat-label>
+          <mat-icon matPrefix class="field-prefix-icon">lock_outline</mat-icon>
+          <input
+            matInput
+            [type]="hideConfirmPassword ? 'password' : 'text'"
+            formControlName="confirmPassword"
+            placeholder="Re-enter your password"
+            autocomplete="new-password"
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            type="button"
+            (click)="toggleConfirmPassword()"
+            [attr.aria-label]="hideConfirmPassword ? 'Show password' : 'Hide password'"
+            class="visibility-toggle"
+          >
+            <mat-icon>{{ hideConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          <mat-error *ngIf="registerForm.get('confirmPassword')?.touched">
+            {{ getConfirmPasswordError() }}
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Terms checkbox -->
+        <div class="terms-row">
+          <mat-checkbox formControlName="agreeTerms" color="primary" class="terms-checkbox">
+            <span class="terms-text">
+              I agree to the
+              <a routerLink="/terms" class="terms-link">Terms of Service</a>
+              and
+              <a routerLink="/privacy" class="terms-link">Privacy Policy</a>
+            </span>
+          </mat-checkbox>
+          <mat-error
+            class="terms-error"
+            *ngIf="registerForm.get('agreeTerms')?.touched && registerForm.get('agreeTerms')?.hasError('required')"
+          >
+            You must accept the terms to continue
+          </mat-error>
+        </div>
+
+        <!-- Register button -->
+        <button
+          mat-flat-button
+          type="submit"
+          class="btn-register"
+          [disabled]="isLoading"
+        >
+          <mat-spinner *ngIf="isLoading" diameter="18" class="btn-spinner"></mat-spinner>
+          <mat-icon *ngIf="!isLoading">how_to_reg</mat-icon>
+          <span *ngIf="!isLoading">Create account</span>
+        </button>
+
+      </form>
+
+      <!-- Divider -->
+      <div class="divider">
+        <span class="divider-line"></span>
+        <span class="divider-text">Already have an account?</span>
+        <span class="divider-line"></span>
+      </div>
+
+      <!-- Sign in link -->
+      <a routerLink="/login" mat-stroked-button class="btn-login">
+        <mat-icon>login</mat-icon>
+        Sign in instead
+      </a>
+
+    </div>
+  </main>
+</div>

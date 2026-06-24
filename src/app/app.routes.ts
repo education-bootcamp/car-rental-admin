@@ -2,10 +2,30 @@ import { Routes } from '@angular/router';
 import { NotFoundPage } from './pages/not-found-page/not-found-page';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '', redirectTo: '/process/home', pathMatch: 'full' },
+  {
+    path: 'process',
+    loadComponent: () => import('./pages/home-context/home-context').then((e) => e.HomeContext),
+    children:[
+  { path: '', redirectTo: '/process/home', pathMatch: 'full' },
   {
     path: 'home',
     loadComponent: () => import('./pages/home-page/home-page').then((e) => e.HomePage),
+  },
+   {
+    path: 'fleet',
+    loadComponent: () => import('./pages/fleet/fleet').then((e) => e.Fleet),
+  },
+   {
+    path: 'about',
+    loadComponent: () => import('./pages/about/about').then((e) => e.About),
+  },
+
+   {
+    path: 'contact',
+    loadComponent: () => import('./pages/contact/contact').then((e) => e.Contact),
+  },
+    ]
   },
   {
     path: 'auth',

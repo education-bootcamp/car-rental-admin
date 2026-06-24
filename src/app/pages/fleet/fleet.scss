@@ -1,0 +1,509 @@
+// ─── Fleet Page ───────────────────────────────────────────────────────────────
+
+// ─── Page header ──────────────────────────────────────────────────────────────
+.fleet-header {
+  background: var(--midnight-blue);
+  padding: 56px 32px 48px;
+
+  @media (max-width: 600px) { padding: 40px 20px 36px; }
+
+  &__inner {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  &__title {
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+    line-height: 1.1;
+  }
+
+  &__sub {
+    font-size: 0.9375rem;
+    color: var(--concrete);
+    line-height: 1.5;
+  }
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--turquoise);
+  margin-bottom: 10px;
+}
+
+// ─── Layout: sidebar + results ────────────────────────────────────────────────
+.fleet-layout {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 40px 32px 80px;
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 40px;
+  align-items: start;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 220px 1fr;
+    gap: 28px;
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    padding: 24px 20px 60px;
+    gap: 24px;
+  }
+}
+
+// ─── Sidebar Filters ──────────────────────────────────────────────────────────
+.filters {
+  background: #fff;
+  border: 1.5px solid var(--clouds);
+  border-radius: 16px;
+  padding: 24px;
+  position: sticky;
+  top: 24px;
+
+  @media (max-width: 768px) {
+    position: static;
+  }
+
+  &__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+  }
+
+  &__title {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--midnight-blue);
+  }
+
+  &__clear {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--concrete);
+    cursor: pointer;
+    padding: 0;
+    font-family: "Roboto", sans-serif;
+    transition: color 0.15s;
+
+    &--active {
+      color: var(--alizarin);
+      &:hover { color: var(--pomegranate); }
+    }
+  }
+
+  &__clear-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    background: var(--alizarin);
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 800;
+    border-radius: 50%;
+  }
+}
+
+.filter-group {
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--clouds);
+
+  &:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  &__label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--asbestos);
+    margin-bottom: 12px;
+  }
+
+  &__value {
+    font-weight: 700;
+    color: var(--turquoise);
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 0.8125rem;
+  }
+
+  &__search-wrap {
+    position: relative;
+  }
+
+  &__search-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 15px;
+    height: 15px;
+    color: var(--concrete);
+    pointer-events: none;
+  }
+
+  &__input {
+    width: 100%;
+    padding: 9px 12px 9px 32px;
+    border: 1.5px solid var(--silver);
+    border-radius: 8px;
+    font-size: 0.875rem;
+    color: var(--midnight-blue);
+    font-family: "Roboto", sans-serif;
+    transition: border-color 0.15s;
+
+    &::placeholder { color: var(--concrete); }
+    &:focus { outline: none; border-color: var(--turquoise); }
+  }
+
+  &__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  &__range {
+    width: 100%;
+    accent-color: var(--turquoise);
+    cursor: pointer;
+    margin-bottom: 8px;
+  }
+
+  &__range-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.7rem;
+    color: var(--concrete);
+  }
+}
+
+// ─── Filter chips ─────────────────────────────────────────────────────────────
+.chip {
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border: 1.5px solid var(--silver);
+  background: transparent;
+  color: var(--asbestos);
+  cursor: pointer;
+  font-family: "Roboto", sans-serif;
+  transition: all 0.15s;
+
+  &:hover {
+    border-color: var(--turquoise);
+    color: var(--turquoise);
+  }
+
+  &--active {
+    background: var(--turquoise);
+    border-color: var(--turquoise);
+    color: #fff;
+
+    &:hover {
+      background: var(--green-sea);
+      border-color: var(--green-sea);
+      color: #fff;
+    }
+  }
+}
+
+// ─── Results toolbar ──────────────────────────────────────────────────────────
+.results {
+  &__toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  &__count {
+    font-size: 0.9rem;
+    color: var(--asbestos);
+
+    strong {
+      color: var(--midnight-blue);
+      font-weight: 700;
+    }
+  }
+
+  &__sort-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__sort-label {
+    font-size: 0.8125rem;
+    color: var(--asbestos);
+    white-space: nowrap;
+  }
+
+  &__sort-select {
+    padding: 7px 12px;
+    border: 1.5px solid var(--silver);
+    border-radius: 8px;
+    font-size: 0.875rem;
+    color: var(--midnight-blue);
+    font-family: "Roboto", sans-serif;
+    background: #fff;
+    cursor: pointer;
+    transition: border-color 0.15s;
+
+    &:focus { outline: none; border-color: var(--turquoise); }
+  }
+}
+
+// ─── Vehicle grid ─────────────────────────────────────────────────────────────
+.vehicle-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+
+  @media (max-width: 1200px) { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 560px)  { grid-template-columns: 1fr; }
+}
+
+// ─── Vehicle card ─────────────────────────────────────────────────────────────
+.vcard {
+  background: #fff;
+  border: 1.5px solid var(--clouds);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+
+  &:hover {
+    box-shadow: 0 6px 28px rgba(44, 62, 80, 0.09);
+    transform: translateY(-2px);
+    border-color: var(--silver);
+  }
+
+  // Visual area
+  &__visual {
+    background: var(--clouds);
+    padding: 28px 20px 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 110px;
+
+    &--unavailable {
+      opacity: 0.5;
+    }
+  }
+
+  &__car {
+    width: 100%;
+    max-width: 160px;
+    color: var(--wet-asphalt);
+  }
+
+  &__badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: var(--turquoise);
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 20px;
+  }
+
+  &__unavailable-pill {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--silver);
+    color: var(--wet-asphalt);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 20px;
+  }
+
+  // Body
+  &__body {
+    padding: 16px 18px 18px;
+  }
+
+  &__tags {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+  }
+
+  &__name {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--midnight-blue);
+    margin-bottom: 10px;
+  }
+
+  &__specs {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+
+  &__spec {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.8rem;
+    color: var(--asbestos);
+
+    svg { width: 13px; height: 13px; flex-shrink: 0; }
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 12px;
+    border-top: 1px solid var(--clouds);
+    gap: 8px;
+  }
+
+  &__price {
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+  }
+
+  &__price-amount {
+    font-size: 0.9375rem;
+    font-weight: 800;
+    color: var(--midnight-blue);
+  }
+
+  &__price-unit {
+    font-size: 0.75rem;
+    color: var(--asbestos);
+  }
+
+  &__cta {
+    padding: 7px 16px;
+    background: var(--turquoise);
+    color: #fff;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 8px;
+    white-space: nowrap;
+    transition: background 0.15s;
+
+    &:hover { background: var(--green-sea); }
+
+    &--disabled {
+      background: var(--clouds);
+      color: var(--concrete);
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+  }
+}
+
+// ─── Tags ─────────────────────────────────────────────────────────────────────
+.tag {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 4px;
+
+  &--category {
+    background: rgba(52, 152, 219, 0.12);
+    color: var(--belize-hole);
+  }
+
+  &--fuel {
+    background: rgba(26, 188, 156, 0.1);
+    color: var(--green-sea);
+  }
+}
+
+// ─── Empty state ──────────────────────────────────────────────────────────────
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 64px 24px;
+  background: #fff;
+  border: 1.5px solid var(--clouds);
+  border-radius: 16px;
+
+  &__icon {
+    width: 64px;
+    height: 64px;
+    color: var(--silver);
+    margin-bottom: 20px;
+
+    svg { width: 100%; height: 100%; }
+  }
+
+  &__title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--midnight-blue);
+    margin-bottom: 8px;
+  }
+
+  &__sub {
+    font-size: 0.9rem;
+    color: var(--asbestos);
+    margin-bottom: 28px;
+    max-width: 320px;
+    line-height: 1.5;
+  }
+
+  &__btn {
+    padding: 10px 24px;
+    background: var(--turquoise);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    font-family: "Roboto", sans-serif;
+    cursor: pointer;
+    transition: background 0.15s;
+
+    &:hover { background: var(--green-sea); }
+  }
+}

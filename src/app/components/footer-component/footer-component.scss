@@ -1,0 +1,192 @@
+// ─── Footer Component ────────────────────────────────────────────────────────
+// Uses the project's CSS custom properties defined in global styles.
+
+.footer {
+  background: var(--midnight-blue);
+  color: var(--silver);
+  font-family: "Roboto", sans-serif;
+
+  // ── Inner grid ──────────────────────────────────────────────────────────────
+  &__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 56px 32px 40px;
+
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 48px;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr 1fr;
+      padding: 40px 20px 32px;
+    }
+
+    @media (max-width: 480px) {
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+  }
+
+  // ── Brand column ────────────────────────────────────────────────────────────
+  &__logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  &__logo-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: var(--turquoise);
+    border-radius: 8px;
+    color: #fff;
+    flex-shrink: 0;
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  &__logo-text {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.01em;
+  }
+
+  &__tagline {
+    font-size: 0.875rem;
+    color: var(--asbestos);
+    margin-bottom: 28px;
+    line-height: 1.5;
+  }
+
+  // ── Contact list ────────────────────────────────────────────────────────────
+  &__contact {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__contact-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.875rem;
+    color: var(--concrete);
+  }
+
+  &__contact-icon {
+    display: flex;
+    align-items: center;
+    color: var(--turquoise);
+    flex-shrink: 0;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  // ── Nav sections ────────────────────────────────────────────────────────────
+  &__section {
+    @media (max-width: 768px) {
+      &:first-of-type {
+        // Brand already occupies its own column at 768px
+      }
+    }
+  }
+
+  &__section-heading {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--turquoise);
+    margin-bottom: 18px;
+  }
+
+  &__links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__link {
+    font-size: 0.875rem;
+    color: var(--concrete);
+    text-decoration: none;
+    transition: color 0.2s ease, padding-left 0.2s ease;
+
+    &:hover {
+      color: #fff;
+      padding-left: 4px;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--turquoise);
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+  }
+
+  // ── Bottom bar ──────────────────────────────────────────────────────────────
+  &__bottom {
+    border-top: 1px solid var(--wet-asphalt);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 18px 32px;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+
+    @media (max-width: 480px) {
+      padding: 16px 20px;
+      justify-content: center;
+      text-align: center;
+    }
+  }
+
+  &__copy {
+    font-size: 0.8125rem;
+    color: var(--asbestos);
+    margin-right: auto;
+
+    @media (max-width: 480px) {
+      margin-right: 0;
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  &__divider {
+    color: var(--wet-asphalt);
+    user-select: none;
+  }
+
+  &__bottom-link {
+    font-size: 0.8125rem;
+    color: var(--asbestos);
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: var(--turquoise);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--turquoise);
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+  }
+}
