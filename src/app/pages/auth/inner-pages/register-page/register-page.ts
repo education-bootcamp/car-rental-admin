@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
  
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -10,6 +10,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
+import { RegisterRequestDto } from '../../../../dto/RegisterRequestDto';
+import { AuthService } from '../../../../services/auth/auth-service';
  
 // Custom validator: passwords must match
 function passwordMatchValidator(group: AbstractControl): ValidationErrors | null {
@@ -42,6 +44,9 @@ export class RegisterPage implements OnInit {
   hidePassword = true;
   hideConfirmPassword = true;
   isLoading = false;
+
+  authService=inject(AuthService);
+  router=inject(Router);
  
   constructor(private fb: FormBuilder) {}
  
@@ -51,7 +56,7 @@ export class RegisterPage implements OnInit {
         firstName: ['', [Validators.required, Validators.minLength(2)]],
         lastName:  ['', [Validators.required, Validators.minLength(2)]],
         email:     ['', [Validators.required, Validators.email]],
-        phone:     ['', [Validators.required, Validators.pattern(/^(?:\+94|0)[0-9]{9}$/)]],
+        phone:     ['', [Validators.pattern(/^(?:\+94|0)[0-9]{9}$/)]],
         password:        ['', [Validators.required, Validators.minLength(8)]],
         confirmPassword: ['', [Validators.required]],
         agreeTerms: [false, [Validators.requiredTrue]],
@@ -76,14 +81,22 @@ export class RegisterPage implements OnInit {
  
     this.isLoading = true;
     const { firstName, lastName, email, phone, password } = this.registerForm.value;
+
+    let user:RegisterRequestDto={
+      fullName: `${firstName} ${lastName}`,
+      email,
+      phone,
+      password
+    }
  
-    // TODO: Inject AuthService and call register({ firstName, lastName, email, phone, password })
-    console.log('Register payload:', { firstName, lastName, email, phone, password });
- 
-    // Placeholder: reset loading after mock delay
-    setTimeout(() => {
-      this.isLoading = false;
-    }, 1500);
+    this.authService.createUser(user).subscribe({
+      next:(e)=>{
+        if(e.status){
+          this.router.navigateByUrl('/auth/login')
+        }
+      }
+    })
+   
   }
  
   // ── Error helpers ────────────────────────────────────────────
